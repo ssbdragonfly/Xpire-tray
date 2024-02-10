@@ -61,7 +61,8 @@ class App(ctk.CTk):
     def create_text(self):
         expireitems = self.product_entry.get()
         expireitems.replace(" ","")
-        expireitems.replace(",,",",")
+        while expireitems.count(",,")>0:
+            expireitems.count(",,",",")
         expireitems = expireitems.split(",")
         newexpireitems = []
         for x in expireitems:
