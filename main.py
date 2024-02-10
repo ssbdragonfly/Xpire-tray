@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from backend import get_foods_cached as get_food_infos
+from backend import get_foods_cached as get_food_info
 from backend import handle_input
 ctk.set_appearance_mode("Dark")   
 ctk.set_default_color_theme("blue")
@@ -58,20 +58,18 @@ class App(ctk.CTk):
         text = self.create_text()
         self.display_box.insert("0.0", text)
 
+    @staticmethod
+    def filter_input(s: str) -> list[str]:
+        s.replace(" ","")
+        while s.count(",,"):
+            s.replace(",,",",")
+        return s.split(",")
+
     def create_text(self):
         expireitems = self.product_entry.get()
-        expireitems.replace(" ","")
-        while expireitems.count(",,")>0:
-            expireitems.count(",,",",")
-        expireitems = expireitems.split(",")
-        newexpireitems = []
-        for x in expireitems:
-            if x != "":
-                newexpireitems.append(x)
-        handle_input(newexpireitems)
-        text = str(self.name_entry.get()) + ":" 
-        for x in newexpireitems:
-            text+= "\nYour " + x + " expires in " + get_food_info()[x] + " days, "
+        expireitems = [x for x in self.filter_input(expireitems) if x]
+        # handle_input(newexpireitems)
+        text = f"{self.name_entry.get()}:"+"\n".join(f"\nYour {x} expires in {get_food_info()[x]} days, " for x in expireitems)
         return text
 
 if __name__ == "__main__":
