@@ -60,16 +60,12 @@ class App(ctk.CTk):
 
     def create_text(self):
         expireitems = self.product_entry.get()
-        expireitems1 = ""
-        for x in expireitems:
-            if not x.isalpha():
-                expireitems1 += "1"
-            else:
-                expireitems1 += x
-        expireitems1 = expireitems1.split("1")
+        expireitems.replace(" ","")
+        expireitems.replace(",,",",")
+        expireitems = expireitems.split(",")
         newexpireitems = []
-        for x in expireitems1:
-            if expireitems1 != "" and expireitems1 != " " and expireitems1 != "  ":
+        for x in expireitems:
+            if x != "":
                 newexpireitems.append(x)
         text = str(self.name_entry.get()) + ":" 
         for x in newexpireitems:
