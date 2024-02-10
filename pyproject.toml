@@ -5,7 +5,7 @@ version = "0.1.0"  # Required
 description = "A sample Python project"  # Optional
 readme = "README.md" # Optional
 
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 
 # This is either text indicating the license for the distribution, or a file
 # that contains the license
@@ -15,12 +15,9 @@ license = {file = "LICENSE.txt"}
 keywords = ["sample", "setuptools", "development"]  # Optional
 
 authors = [
-  {name = "A. Random Developer", email = "author@example.com" } # Optional
+  {name = "Aarush Deshpande", email = "aarush.deshpande@gmail.com" }
 ]
 
-maintainers = [
-  {name = "A. Great Maintainer", email = "maintainer@example.com" } # Optional
-]
 
 classifiers = [  # Optional
   # How mature is this project? Common values are
@@ -40,9 +37,6 @@ classifiers = [  # Optional
   # that you indicate you support Python 3. These classifiers are *not*
   # checked by "pip install". See instead "python_requires" below.
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3 :: Only",
