@@ -1,8 +1,9 @@
-import tkinter as tk
 import customtkinter as ctk
 from backend import get_food_info
+
 ctk.set_appearance_mode("Dark")   
 ctk.set_default_color_theme("blue")
+
 appWidth, appHeight = 600, 700
 class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
@@ -11,16 +12,16 @@ class App(ctk.CTk):
         self.geometry(f"{appWidth}x{appHeight}")    
 
         #Name Entry
-        self.nameLabel = ctk.CTkLabel(self,
+        self.name_label = ctk.CTkLabel(self,
                                 text="Name")
-        self.nameLabel.grid(row=0, column=0,
+        self.name_label.grid(row=0, column=0,
                             padx=20, pady=20,
                             sticky="ew")
  
         # Name Entry Field
-        self.nameEntry = ctk.CTkEntry(self,
+        self.name_entry = ctk.CTkEntry(self,
                           placeholder_text="Shaurya")
-        self.nameEntry.grid(row=0, column=1,
+        self.name_entry.grid(row=0, column=1,
                             columnspan=3, padx=20,
                             pady=20, sticky="ew")
  
@@ -31,33 +32,34 @@ class App(ctk.CTk):
                            sticky="ew")
  
         # Product Entry Field
-        self.productEntry = ctk.CTkEntry(self,
+        self.product_entry = ctk.CTkEntry(self,
                             placeholder_text="e.x:Potato")
-        self.productEntry.grid(row=1, column=1,
+        self.product_entry.grid(row=1, column=1,
                            columnspan=3, padx=20,
                            pady=20, sticky="ew")
 
         # Generate Button
-        self.generateResultsButton = ctk.CTkButton(self,
+        self.gen_results_button = ctk.CTkButton(self,
                                          text="Generate Results",
-                                         command=self.generateResults)
-        self.generateResultsButton.grid(row=5, column=1,
+                                         command=self.generate_results)
+        self.gen_results_button.grid(row=5, column=1,
                                         columnspan=2, padx=20, 
                                         pady=20, sticky="ew")
  
         # Text Box
-        self.displayBox = ctk.CTkTextbox(self,
+        self.display_box = ctk.CTkTextbox(self,
                                          width=400,
                                          height=200)
-        self.displayBox.grid(row=6, column=0,
+        self.display_box.grid(row=6, column=0,
                              columnspan=4, padx=20,
                              pady=20, sticky="nsew")
-    def generateResults(self):
-        self.displayBox.delete("0.0", "200.0")
-        text = self.createText()
-        self.displayBox.insert("0.0", text)
-    def createText(self):
-        expireitems = self.productEntry.get()
+    def generate_results(self):
+        self.display_box.delete("0.0", "200.0")
+        text = self.create_text()
+        self.display_box.insert("0.0", text)
+
+    def create_text(self):
+        expireitems = self.product_entry.get()
         expireitems1 = ""
         for x in expireitems:
             if not x.isalpha():
@@ -69,9 +71,9 @@ class App(ctk.CTk):
         for x in expireitems1:
             if expireitems1 != "" and expireitems1 != " " and expireitems1 != "  ":
                 newexpireitems.append(x)
-        text = str(self.nameEntry.get()) + ":" 
+        text = str(self.name_entry.get()) + ":" 
         for x in newexpireitems:
-            text+= "\nYour " + x + " expires in " + get_food_info(x) + " days, "
+            text+= "\nYour " + x + " expires in " + get_food_info()[x] + " days, "
         return text
 
 if __name__ == "__main__":
