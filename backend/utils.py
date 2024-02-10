@@ -52,6 +52,6 @@ def food_to_stored_food(food_data: FoodData, storage_location: str) -> StoredFoo
     return StoredFood(
         name = food_data.name,
         date_stored=datetime.now(),
-        max_time = getattr(food_data, storage_location)
+        max_time = getattr(food_data, storage_location.lower())
     )
 

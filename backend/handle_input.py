@@ -1,42 +1,64 @@
+from backend.data import FoodData
 from backend.utils import *
 import customtkinter as ctk
 
-class SearchWindow(ctk.CTkToplevel):
-    def __init__(self, *args, **kwargs):
-        searches = kwargs.pop("searches")
-        super().__init__(*args, **kwargs)
+class _Window(ctk.CTkToplevel):
+    def __init__(self, *texts, **kwargs):
+        super().__init__(**kwargs)
+        assert len(texts) == 2
         self.geometry("800x300")
-        self.warning_label = ctk.CTkLabel(self, text="Enter which of the following it is: ")
-        self.warning_label.pack(padx=20, pady=20)
-        self.warning_entry = ctk.CTkEntry(self, width=500, placeholder_text="Enter the intended product")
-        self.warning_entry.pack(padx=20, pady=20)
-        self.warning_label.config(text="Enter which of the following it is: " + searches)
+        self.label = ctk.CTkLabel(self, text=texts[0])
+        self.label.pack(padx=20, pady=20)
+        self.entry = ctk.CTkEntry(self, width=500, placeholder_text=texts[1])
+        self.entry.pack(padx=20, pady=20)
+        self.next = ctk.CTkButton(self, text="Next", command=self.quit)
+        self.next.pack(pady=20)
 
-class PlacementWindow(ctk.CTkToplevel):
-    def __init__(self, *args, **kwargs):
-        product = kwargs.pop("product")
-        super().__init__(*args, **kwargs)
-        self.geometry("800x300")
-        self.placement_label = ctk.CTkLabel(self, text="Enter the number associated with the location/state of the: Pantry(1) Fridge(2) Opened In the Fridge(3) Freezer(4)")#add new lines if possible
-        self.placement_label.pack(padx=20, pady=20)
-        self.placement_entry = ctk.CTkEntry(self, width=500, placeholder_text="Enter the placement of the product exactly as stated")
-        self.placement_entry.pack(padx=20, pady=20)
-        self.placement_label.config(text="Enter the number associated with the location/state of the"+product+": Pantry(1) Fridge(2) Opened In the Fridge(3) Freezer(4)")
-def handle_input(products):
+
+class SearchWindow(_Window):
+    def __init__(self, searches, **kwargs):
+        super().__init__(
+            "Enter which of the following it is: ",
+            "Enter the intended product",
+            **kwargs
+        )
+        self.label.configure(text=f"Enter which of the following it is: ")
+        ctk.CTkLabel(self, text='\n'.join(x for x in searches)).pack(pady=20)
+        self.mainloop()
+
+class PlacementWindow(_Window):
+    def __init__(self, product, **kwargs):
+        super().__init__(
+            "Enter the number associated with the location/state of the: Pantry(1) Fridge(2) Opened In the Fridge(3) Freezer(4)",
+            "Enter the placement of the product exactly as stated",
+            **kwargs
+        )
+        self.label.configure(text=f"Enter the number associated with the location/state of the {product}:\nPantry(1)\nFridge(2)\nOpened In the Fridge(3)\nFreezer(4)")
+        self.mainloop()
+
+def handle_input(products: list[str]):
     for x in products:
-        searches = search_for(x)
-        if not isinstance(searches, str):
+        searches = search_for(x, get_foods_cached())
+        if not isinstance(searches, FoodData):
             top_level_window = SearchWindow(searches = searches)
-            entry = top_level_window.warning_entry.get() 
+            entry = top_level_window.entry.get() 
             top_level_window.destroy()
-        placement_window = PlacementWindow(product = x)
-        entrydict = {
-            "1":"pantry",
-            "2":"fridge",
-            "3":"fridge_after_opening",
-            "4":"freezer"
-        }
-        entryagain = placement_window.placement_entry.get() 
+        else:
+            entry = searches.name
+        while True:
+            placement_window = PlacementWindow(product = x)
+            entrydict = {
+                "1":"pantry",
+                "2":"fridge",
+                "3":"fridge_after_opening",
+                "4":"freezer"
+            }
+            entryagain = placement_window.entry.get() 
+            if entryagain.isnumeric():
+                break
+            else:
+                print("Please enter a number!")
+
         placement_window.destroy()
         storedfood = food_to_stored_food(get_foods_cached()[entry],storage_location=entrydict[entryagain])
         #database stuff
