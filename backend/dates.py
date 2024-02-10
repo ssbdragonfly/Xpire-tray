@@ -1,4 +1,5 @@
 from datetime import datetime
+from notify import notification
 import schedule
 from backend.data import StoredFood
 
@@ -10,5 +11,8 @@ def _reminder(foods: dict[str, StoredFood], tol: int) -> None:
     for name, food in foods.items():
         diff = (datetime.now() - food.date_stored).days
         if diff > food.max_time - tol:
-            print(f"Warning: {name}")
+            notification(
+                'Food Expiring!',
+                message=f"{name} is expiring in {food.max_time-diff} days, use it soon!"
+            )
 
