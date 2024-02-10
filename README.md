@@ -1,4 +1,4 @@
-# Expiry Warner
+# Expir-E Warner
 Lightweight program that warns you if anything in your fridge, pantry, or freezer is close to expiry.
 
 
