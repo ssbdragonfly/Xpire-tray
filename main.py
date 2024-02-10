@@ -4,7 +4,7 @@ from backend import get_foods_cached as get_food_infos
 ctk.set_appearance_mode("Dark")   
 ctk.set_default_color_theme("blue")
 
-appWidth, appHeight = 600, 700
+appWidth, appHeight = 1000, 600
 class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,9 +19,9 @@ class App(ctk.CTk):
                             sticky="ew")
  
         # Name Entry Field
-        self.name_entry = ctk.CTkEntry(self,
+        self.name_entry = ctk.CTkEntry(self, width = 700,
                           placeholder_text="Your name here!")
-        self.name_entry.grid(row=0, column=1,
+        self.name_entry.grid( row=0, column=1,
                             columnspan=3, padx=20,
                             pady=20, sticky="ew")
  
