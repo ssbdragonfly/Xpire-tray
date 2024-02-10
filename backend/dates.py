@@ -11,8 +11,18 @@ def _reminder(foods: dict[str, StoredFood], tol: int) -> None:
     for name, food in foods.items():
         diff = (datetime.now() - food.date_stored).days
         if diff > food.max_time - tol:
-            notification(
+            _send_notif(
                 'Food Expiring!',
                 message=f"{name} is expiring in {food.max_time-diff} days, use it soon!"
             )
+
+def _send_notif(*args, **kwargs) -> None:
+    try:
+        notification(
+            *args,
+            **kwargs
+        )
+    except Exception:
+        pass
+
 
