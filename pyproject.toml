@@ -51,7 +51,6 @@ classifiers = [  # Optional
 dependencies = [ # Optional
   "customtkinter",
   "requests",
-  "csvreader"
 ]
 
 # List additional groups of dependencies here (e.g. development
