@@ -1,0 +1,1 @@
+from backend.parse_foods_expiry import get_food_info
