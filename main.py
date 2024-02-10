@@ -20,7 +20,7 @@ class App(ctk.CTk):
  
         # Name Entry Field
         self.name_entry = ctk.CTkEntry(self,
-                          placeholder_text="Shaurya")
+                          placeholder_text="Your name here!")
         self.name_entry.grid(row=0, column=1,
                             columnspan=3, padx=20,
                             pady=20, sticky="ew")
@@ -33,7 +33,7 @@ class App(ctk.CTk):
  
         # Product Entry Field
         self.product_entry = ctk.CTkEntry(self,
-                            placeholder_text="e.x:Potato")
+                            placeholder_text="Comma seperated list!")
         self.product_entry.grid(row=1, column=1,
                            columnspan=3, padx=20,
                            pady=20, sticky="ew")
