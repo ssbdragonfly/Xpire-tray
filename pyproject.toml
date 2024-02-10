@@ -51,6 +51,7 @@ classifiers = [  # Optional
 dependencies = [ # Optional
   "customtkinter",
   "requests",
+  "schedule"
 ]
 
 # List additional groups of dependencies here (e.g. development
