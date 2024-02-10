@@ -1,5 +1,4 @@
 from datetime import datetime
-from notify import notification
 import schedule
 from backend.data import StoredFood
 
@@ -18,6 +17,7 @@ def _reminder(foods: dict[str, StoredFood], tol: int) -> None:
 
 def _send_notif(*args, **kwargs) -> None:
     try:
+        from notify import notifications
         notification(
             *args,
             **kwargs

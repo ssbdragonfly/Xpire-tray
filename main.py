@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from backend import get_food_info
+from backend import get_foods_cached as get_food_infos
 
 ctk.set_appearance_mode("Dark")   
 ctk.set_default_color_theme("blue")
