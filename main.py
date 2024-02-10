@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from backend import get_foods_cached as get_food_infos
-
+from backend import handle_input
 ctk.set_appearance_mode("Dark")   
 ctk.set_default_color_theme("blue")
 
@@ -68,6 +68,7 @@ class App(ctk.CTk):
         for x in expireitems:
             if x != "":
                 newexpireitems.append(x)
+        handle_input(newexpireitems)
         text = str(self.name_entry.get()) + ":" 
         for x in newexpireitems:
             text+= "\nYour " + x + " expires in " + get_food_info()[x] + " days, "
