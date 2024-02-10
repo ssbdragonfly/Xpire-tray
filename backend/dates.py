@@ -15,14 +15,16 @@ def _reminder(foods: dict[str, StoredFood], tol: int) -> None:
                 message=f"{name} is expiring in {food.max_time-diff} days, use it soon!"
             )
 
-def _send_notif(*args, **kwargs) -> None:
+def _send_notif(*args, **kwargs) -> int:
     try:
-        from notify import notifications
+        from notify import notification
         notification(
             *args,
             **kwargs
         )
     except RuntimeError:
-        pass
+        return 1
+    else:
+        return 0
 
 

@@ -2,12 +2,14 @@ import psutil
 import difflib
 import pickle
 from pathlib import Path
+from backend.data import StoredFood
 from backend.parse_foods_expiry import get_food_info
 
 __all__ = [
     "kill_notifs",
     "search_for",
-    "get_foods_cached"
+    "get_foods_cached",
+    "get_foods_in_database"
 ]
 
 def kill_notifs() -> None:
@@ -30,3 +32,14 @@ def get_foods_cached():
         pickle.dump(foods, f)
     return foods
 
+def get_foods_in_database() -> list[StoredFood]:
+    existing = Path("storage/database.pickle")
+    if existing.exists():
+        with existing.open("rb") as f:
+            return pickle.load(f)
+    write_database([])
+    return []
+
+def write_database(foods: list[StoredFood]) -> None:
+    with open("storage/database.pickle", "wb") as f:
+        pickle.dump(foods, f)
