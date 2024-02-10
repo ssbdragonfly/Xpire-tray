@@ -22,7 +22,7 @@ def _send_notif(*args, **kwargs) -> None:
             *args,
             **kwargs
         )
-    except Exception:
+    except RuntimeError:
         pass
 
 
