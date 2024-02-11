@@ -1,5 +1,5 @@
 from backend.constants import FOOD_DATA_PATH
-from backend.data import FoodData 
+from backend.utils import FoodData 
 import csv
 
 __all__ = [

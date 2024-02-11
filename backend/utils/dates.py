@@ -1,15 +1,11 @@
 from datetime import datetime
-from enum import Enum
 import schedule
-from backend.data import StoredFood
+from backend.utils.data import StoredFood
+from backend.utils.utils import ExitCode
 
 __all__ = [
     "schedule_reminders"
 ]
-
-class ExitCode(Enum):
-    FAILURE = 1
-    SUCCESS = 0
 
 def schedule_reminders(foods: dict[str, StoredFood], tol: int) -> None:
     schedule.every().day().at("10:30").do(lambda foods=foods: _reminder(foods, tol))
