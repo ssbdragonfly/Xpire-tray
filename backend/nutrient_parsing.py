@@ -1,7 +1,8 @@
 from backend.imageapi import get_image_info
+from backend.assess import assessing
 
-data = get_image_info()
 def parse():
+    data = get_image_info()
     ls = []
     carb_sum = 0
     sugar_sum = 0
@@ -50,8 +51,8 @@ def parse():
     ls.append(("sodium", sodium_sum/cal_sum)) #Total number of sodium divided by total number of calories
     ls.append(("protein", protein_sum/cal_sum)) #Total number of protein divided by total number of calories
     ls.append(("fat", fat_sum/cal_sum)) #Total number of fat divided by total number of calories
-
-    return ls
+    assessing(carb_sum/cal_sum, sugar_sum/cal_sum, sodium_sum/cal_sum, protein_sum/cal_sum, fat_sum/cal_sum)
+    return None
 
 
 
