@@ -1,6 +1,7 @@
 from backend.data import FoodData
 from backend.utils import *
 import customtkinter as ctk
+from CTkMessagebox import CTkMessagebox
 
 class _Window(ctk.CTkToplevel):
     def __init__(self, *texts, **kwargs):
@@ -57,8 +58,19 @@ def handle_input(products: list[str]):
             if entryagain.isnumeric():
                 break
             else:
-                print("Please enter a number!")
+                CTkMessagebox("Please enter a number!")
 
         placement_window.destroy()
-        storedfood = food_to_stored_food(get_foods_cached()[entry],storage_location=entrydict[entryagain])
+        tmp = get_foods_cached()[entry]
+        storedfood = food_to_stored_food(tmp, storage_location=entrydict[entryagain])
+        if storedfood.max_time == -1:
+            attrs = ("freezer", "fridge", "fridge_after_opening", "pantry")
+            location = sorted(
+                attrs,
+                key=(lambda i: getattr(storedfood, i)),
+                reverse=True
+            )[0]
+            CTkMessagebox(message=f"Please put it in the {location}")
+            storedfood = food_to_stored_food(tmp, storage_location=entrydict[location])
+
         #database stuff
