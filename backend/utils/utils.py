@@ -2,6 +2,7 @@ import psutil
 import difflib
 from enum import Enum
 from typing import Callable
+from backend.constants import TITLE
 
 
 
@@ -25,8 +26,9 @@ def pcall(f: Callable, *args, **kwargs) -> int:
         return ExitCode.FAILURE
 
 def kill_notifs() -> None:
+    # TODO: Make OS independent
     for proc in psutil.process_iter():
-        if proc.name() == "main.py":
+        if proc.name() == "python":
             proc.kill()
 
 def search_for(item: str, foods: dict) -> str | list[str]:

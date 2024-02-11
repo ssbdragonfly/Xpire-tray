@@ -1,4 +1,7 @@
 import customtkinter as ctk
+from pystray import MenuItem as item
+import pystray
+from PIL import Image, ImageDraw
 from backend import *
 
 ctk.set_appearance_mode("dark")   
@@ -8,7 +11,7 @@ width, height = 1000, 600
 class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.title("Food Expire-E Program")   #change the name later
+        self.title(TITLE)   #change the name later
         self.geometry(f"{width}x{height}")
         self.homepage()
 
@@ -128,6 +131,7 @@ class App(ctk.CTk):
 
 def main():
     app = App()
+    app.protocol('WM_DELETE_WINDOW', app.withdraw)
     app.mainloop()
 
 if __name__ == "__main__":
