@@ -41,13 +41,20 @@ class App(ctk.CTk):
         )
         self.gen_results_button.pack(**pack_kwargs)
         
+        self.upload_from_file = ctk.CTkButton(
+            self,
+            text="Choose file",
+            command=self.add_from_file
+        )
+        self.upload_from_file.pack(**pack_kwargs)
+        
         assess = lambda: None # to remove later
         self.ml_regression_button = ctk.CTkButton(
             self,
             text="Nutrition Assesment",
             command=assess
         )
-        self.ml_regression_button.pack(**(pack_kwargs | {"pady": 50}))
+        self.ml_regression_button.pack(**(pack_kwargs | {"pady": 70}))
 
     @staticmethod
     def filter_input(s: str) -> list[str]:
@@ -56,10 +63,25 @@ class App(ctk.CTk):
             s.replace(",,",",")
         return s.split(",")
 
-    def create_text(self):
+    def create_text(self) -> list[str]:
         expireitems = self.product_entry.get()
         expireitems = [x for x in self.filter_input(expireitems) if x]
-        self.handle_input(expireitems)
+        return expireitems
+    
+    def add_by_name(self) -> None:
+        new_database_members = self.create_text()
+        self.handle_input(new_database_members)
+        
+    def add_from_file(self) -> None:
+        img_info = get_image_info()
+        if img_info == ExitCode.FAILURE:
+            return
+        elif not img_info:
+            raise Exception("API Error: Something went wrong")
+        food_name = img_info["foodName"]
+        print(food_name)
+        self.handle_input([food_name] if isinstance(food_name, str) else food_name[0])
+        
     
     def handle_input(self, products: list[str]):
         for x in products:
