@@ -3,7 +3,6 @@ from __future__ import annotations
 import difflib
 from enum import Enum
 from typing import Callable, TYPE_CHECKING
-from backend.constants import TITLE
 
 if TYPE_CHECKING:
     from backend.utils.data import FoodData
