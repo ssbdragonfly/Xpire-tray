@@ -1,6 +1,10 @@
 import customtkinter as ctk
 from pathlib import Path
 
+__all__ = [
+    "select_file"
+]
+
 def select_file() -> Path:
     ftypes = ("png", "jpeg", "svg")
     fpath = Path(

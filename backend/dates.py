@@ -3,6 +3,10 @@ from enum import Enum
 import schedule
 from backend.data import StoredFood
 
+__all__ = [
+    "schedule_reminders"
+]
+
 class ExitCode(Enum):
     FAILURE = 1
     SUCCESS = 0

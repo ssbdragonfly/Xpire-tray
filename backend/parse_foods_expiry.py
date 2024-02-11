@@ -2,6 +2,9 @@ from backend.constants import FOOD_DATA_PATH
 from backend.data import FoodData 
 import csv
 
+__all__ = [
+    "get_food_info"
+]
 
 def get_food_info() -> dict[str, FoodData]:
     """Returns a dictionary mapping a food name to a `FoodData`

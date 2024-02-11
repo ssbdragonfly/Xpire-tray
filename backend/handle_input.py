@@ -3,6 +3,10 @@ from backend.utils import *
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
 
+__all__ = [
+    "handle_input"
+]
+
 class _Window(ctk.CTkToplevel):
     def __init__(self, *texts, **kwargs):
         super().__init__(**kwargs)

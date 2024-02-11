@@ -3,6 +3,10 @@ from gui_utils import select_file
 from typing import Any
 from CTkMessagebox import CTkMessagebox
 
+__all__ = [
+    "get_image_info"
+]
+
 def get_image_info() -> dict[str, Any] | None:
     img = select_file()
     api_user_token = 'fc2d833b315c0fbfe7b9fafc3ca65a5fc6652d2b'
