@@ -39,7 +39,7 @@ class SearchWindow(_Window):
             "Enter the intended product",
             **kwargs
         )
-        ctk.CTkLabel(self, text='\n'.join(x for x in searches)).pack(**self._pack_kwargs)
+        ctk.CTkLabel(self, text='\n'.join(f"({num+1}) {x}" for num, x in enumerate(searches))).pack(**self._pack_kwargs)
         self._init()
 
 class PlacementWindow(_Window):

@@ -17,8 +17,9 @@ class ExitCode(Enum):
     SUCCESS = 0
 
 def pcall(f: Callable, *args, **kwargs) -> int:
+    """Make a function not raise an exception by catching it and returning an exit code."""
     try:
-        f()
+        f(*args, **kwargs)
         return ExitCode.SUCCESS
     except Exception:
         return ExitCode.FAILURE

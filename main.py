@@ -79,16 +79,18 @@ class App(ctk.CTk):
         elif not img_info:
             raise Exception("API Error: Something went wrong")
         food_name = img_info["foodName"]
-        print(food_name)
-        self.handle_input([food_name] if isinstance(food_name, str) else food_name[0])
-        
+        self.handle_input([food_name.capitalize()] if isinstance(food_name, str) else [food_name[0].capitalize()])
     
     def handle_input(self, products: list[str]):
         for x in products:
             searches = search_for(x, get_foods_cached())
             if not isinstance(searches, FoodData):
                 top_level_window = SearchWindow(searches = searches)
-                entry = top_level_window.entry.get() 
+                entry = top_level_window.entry.get()
+                if entry.isnumeric() and int(entry) < len(searches):
+                    entry = searches[int(entry)-1]
+                else:
+                    entry = searches[-1]
                 top_level_window.destroy()
             else:
                 entry = searches.name
@@ -104,7 +106,7 @@ class App(ctk.CTk):
                 if entryagain.isnumeric():
                     break
                 else:
-                    Popup("Please enter a number!", master=self)
+                    pcall(Popup("Please enter a number!", master=self))
 
             placement_window.destroy()
             tmp = get_foods_cached()[entry]
