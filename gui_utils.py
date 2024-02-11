@@ -6,16 +6,16 @@ __all__ = [
 ]
 
 def select_file() -> Path:
-    ftypes = ("png", "jpeg", "svg")
+    ftypes = ("png", "jpeg", "svg", "jfif", "jpg")
     fpath = Path(
         ctk.filedialog.askopenfilename(
             title="Select a File",
             filetypes=[
+                ("All files", "*.*"),
                 *[
-                    ("{x.upper()} files", f"*.{x}")
+                    (f"{x.upper()} files", f"*.{x}")
                     for x in ftypes
                 ],
-                ("All files", "*.*")
             ]
         )
     )
