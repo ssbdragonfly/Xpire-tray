@@ -1,7 +1,4 @@
 import customtkinter as ctk
-from pystray import MenuItem as item
-import pystray
-from PIL import Image, ImageDraw
 from backend import *
 
 ctk.set_appearance_mode("dark")   

@@ -1,7 +1,4 @@
 customtkinter
 requests
-psutil
 plyer
 CTkMessagebox
-pystray
-pillow
