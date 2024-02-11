@@ -61,7 +61,7 @@ class App(ctk.CTk):
     @staticmethod
     def filter_input(s: str) -> list[str]:
         s.replace(" ","")
-        while s.count(",,"):
+        while ",," in s:
             s.replace(",,",",")
         return s.split(",")
 
