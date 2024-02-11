@@ -38,6 +38,14 @@ class App(ctk.CTk):
             command=self.create_text
         )
         self.gen_results_button.pack(**pack_kwargs)
+        
+        assess = lambda: None # to remove later
+        self.ml_regression_button = ctk.CTkButton(
+            self,
+            text="Nutrition Assesment",
+            command=assess
+        )
+        self.ml_regression_button.pack(**(pack_kwargs | {"pady": 50}))
 
     @staticmethod
     def filter_input(s: str) -> list[str]:
