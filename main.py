@@ -52,6 +52,7 @@ class App(ctk.CTk):
         self.upload_from_file.pack(**pack_kwargs)
         
         assess = lambda: None # to remove later
+        
         self.ml_regression_button = ctk.CTkButton(
             self,
             text="Nutrition Assesment",
