@@ -1,8 +1,13 @@
+from __future__ import annotations
+
 import psutil
 import difflib
 from enum import Enum
-from typing import Callable
+from typing import Callable, TYPE_CHECKING
 from backend.constants import TITLE
+
+if TYPE_CHECKING:
+    from backend.utils.data import FoodData
 
 
 
@@ -31,7 +36,7 @@ def kill_notifs() -> None:
         if proc.name() == "python":
             proc.kill()
 
-def search_for(item: str, foods: dict) -> str | list[str]:
+def search_for(item: str, foods: dict[str, FoodData]) -> FoodData | list[str]:
     if item in foods:
         return foods[item]
     return difflib.get_close_matches(item, foods.keys())

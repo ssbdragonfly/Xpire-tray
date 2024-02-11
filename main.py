@@ -98,10 +98,10 @@ class App(ctk.CTk):
                 top_level_window.destroy()
             else:
                 entry = searches.name
-            
             storedfood = self.get_stored_location(entry, prod)
             new_database_members.append(storedfood)
             print(f"Added {storedfood} to database")
+        append_to_database(*new_database_members)
             
     def get_stored_location(self, entry: str, prod: list[str]) -> None:
         while True:
@@ -135,8 +135,12 @@ class App(ctk.CTk):
                 and location == "fridge"
             ):
                 Popup(message=f"Please put it in the {location}", master = self)
-                storedfood = food_to_stored_food(tmp, storage_location=entrydict[location])
+                storedfood = food_to_stored_food(tmp, storage_location=location)
         return storedfood
+    
+    def on_closing(self) -> None:
+        schedule_reminders(get_foods_cached(), 90)
+        self.withdraw()
 
 def main():
     app = App()

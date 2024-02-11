@@ -2,7 +2,7 @@ customtkinter
 requests
 schedule
 psutil
-notify-send
+plyer
 CTkMessagebox
 pystray
 pillow

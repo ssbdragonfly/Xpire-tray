@@ -8,22 +8,24 @@ __all__ = [
 ]
 
 def schedule_reminders(foods: dict[str, StoredFood], tol: int) -> None:
-    schedule.every().day().at("10:30").do(lambda foods=foods: _reminder(foods, tol))
+    schedule.every().minute.at(":17").do(lambda foods=foods: _reminder(foods, tol))
 
 
-def _reminder(foods: dict[str, StoredFood], tol: int) -> None:
-    for name, food in foods.items():
+def _reminder(foods: list[StoredFood], tol: int) -> None:
+    for food in foods:
+        name = food.name
         diff = (datetime.now() - food.date_stored).days
         if diff > food.max_time - tol:
             _send_notif(
-                'Food Expiring!',
-                message=f"{name} is expiring in {food.max_time-diff} days, use it soon!"
+                title='Food Expiring!',
+                message=f"{name} is expiring in {food.max_time-diff} days, use it soon!",
+                timeout = 60
             )
 
 def _send_notif(*args, **kwargs) -> int:
+    from plyer import notification
     try:
-        from notify import notification
-        notification(
+        notification.notify(
             *args,
             **kwargs
         )

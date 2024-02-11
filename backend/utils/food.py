@@ -11,27 +11,29 @@ __all__ = [
     "food_to_stored_food",
 ]
 
+FOODS = Path("storage/foods.pickle")
+DATABASE = Path("storage/database.pickle")
+
 def get_foods_cached():
     """Returns dict of foods we have info for"""
-    path = Path("storage/foods.pickle")
-    if path.exists():
-        with path.open("rb") as f:
+    if FOODS.exists():
+        with FOODS.open("rb") as f:
             return pickle.load(f)
     foods = get_food_info()
-    write_database(foods)
+    with FOODS.open("wb") as f:
+        pickle.dump(foods, f)
     return foods
 
 def get_foods_in_database() -> list[StoredFood]:
     """Get foods in fridge"""
-    existing = Path("storage/database.pickle")
-    if existing.exists():
-        with existing.open("rb") as f:
+    if DATABASE.exists():
+        with DATABASE.open("rb") as f:
             return pickle.load(f)
     write_database([])
     return []
 
 def write_database(foods: list[StoredFood]) -> None:
-    with open("storage/database.pickle", "wb") as f:
+    with DATABASE.open("wb") as f:
         pickle.dump(foods, f)
 
 def append_to_database(*foods: StoredFood) -> None:
