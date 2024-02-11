@@ -6,5 +6,5 @@ __all__ = [
 ]
 
 FOOD_DATA_PATH = Path("storage/foods.csv")
-TITLE = "Food Expire-E Warner"
+TITLE = "Xpire Tray"
 
