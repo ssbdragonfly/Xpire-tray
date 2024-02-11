@@ -110,16 +110,21 @@ class App(ctk.CTk):
 
             placement_window.destroy()
             tmp = get_foods_cached()[entry]
-            storedfood = food_to_stored_food(tmp, storage_location=entrydict[entryagain])
+            stored_location = entrydict[entryagain]
+            storedfood = food_to_stored_food(tmp, storage_location=stored_location)
             if storedfood.max_time == -1:
                 attrs = entrydict.values()
                 location = sorted(
                     attrs,
-                    key=(lambda i: getattr(storedfood, i)),
+                    key=(lambda i: getattr(tmp, i)),
                     reverse=True
                 )[0]
-                Popup(message=f"Please put it in the {location}")
-                storedfood = food_to_stored_food(tmp, storage_location=entrydict[location])
+                if not (
+                    stored_location == "fridge_after_opening"
+                    and location == "fridge"
+                ):
+                    Popup(message=f"Please put it in the {location}", master = self)
+                    storedfood = food_to_stored_food(tmp, storage_location=entrydict[location])
 
 def main():
     app = App()
