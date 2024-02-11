@@ -40,7 +40,7 @@ class App(ctk.CTk):
         self.gen_results_button = ctk.CTkButton(
             self,
             text="Generate Results",
-            command=self.create_text
+            command=self.add_by_name
         )
         self.gen_results_button.pack(**pack_kwargs)
         
@@ -85,8 +85,9 @@ class App(ctk.CTk):
         self.handle_input([food_name.capitalize()] if isinstance(food_name, str) else [food_name[0].capitalize()])
     
     def handle_input(self, products: list[str]):
-        for x in products:
-            searches = search_for(x, get_foods_cached())
+        new_database_members = []
+        for prod in products:
+            searches = search_for(prod, get_foods_cached())
             if not isinstance(searches, FoodData):
                 top_level_window = SearchWindow(searches = searches)
                 entry = top_level_window.entry.get()
@@ -97,37 +98,45 @@ class App(ctk.CTk):
                 top_level_window.destroy()
             else:
                 entry = searches.name
-            while True:
-                placement_window = PlacementWindow(product = x)
-                entrydict = {
-                    "1":"pantry",
-                    "2":"fridge",
-                    "3":"fridge_after_opening",
-                    "4":"freezer"
-                }
-                entryagain = placement_window.entry.get() 
-                if entryagain.isnumeric():
-                    break
-                else:
-                    pcall(Popup("Please enter a number!", master=self))
+            
+            storedfood = self.get_stored_location(entry, prod)
+            new_database_members.append(storedfood)
+            print(f"Added {storedfood} to database")
+            
+    def get_stored_location(self, entry: str, prod: list[str]) -> None:
+        while True:
+            # why are we checking product = prod here?
+            placement_window = PlacementWindow(product = prod)
+            entrydict = {
+                "1":"pantry",
+                "2":"fridge",
+                "3":"fridge_after_opening",
+                "4":"freezer"
+            }
+            entryagain = placement_window.entry.get() 
+            if entryagain.isnumeric():
+                break
+            else:
+                pcall(Popup("Please enter a number!", master=self))
 
-            placement_window.destroy()
-            tmp = get_foods_cached()[entry]
-            stored_location = entrydict[entryagain]
-            storedfood = food_to_stored_food(tmp, storage_location=stored_location)
-            if storedfood.max_time == -1:
-                attrs = entrydict.values()
-                location = sorted(
-                    attrs,
-                    key=(lambda i: getattr(tmp, i)),
-                    reverse=True
-                )[0]
-                if not (
-                    stored_location == "fridge_after_opening"
-                    and location == "fridge"
-                ):
-                    Popup(message=f"Please put it in the {location}", master = self)
-                    storedfood = food_to_stored_food(tmp, storage_location=entrydict[location])
+        placement_window.destroy()
+        tmp = get_foods_cached()[entry]
+        stored_location = entrydict[entryagain]
+        storedfood = food_to_stored_food(tmp, storage_location=stored_location)
+        if storedfood.max_time == -1:
+            attrs = entrydict.values()
+            location = sorted(
+                attrs,
+                key=(lambda i: getattr(tmp, i)),
+                reverse=True
+            )[0]
+            if not (
+                stored_location == "fridge_after_opening"
+                and location == "fridge"
+            ):
+                Popup(message=f"Please put it in the {location}", master = self)
+                storedfood = food_to_stored_food(tmp, storage_location=entrydict[location])
+        return storedfood
 
 def main():
     app = App()

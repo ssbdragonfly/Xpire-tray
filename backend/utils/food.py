@@ -7,6 +7,7 @@ __all__ = [
     "get_foods_cached",
     "get_foods_in_database",
     "write_database",
+    "append_to_database",
     "food_to_stored_food",
 ]
 
@@ -32,6 +33,11 @@ def get_foods_in_database() -> list[StoredFood]:
 def write_database(foods: list[StoredFood]) -> None:
     with open("storage/database.pickle", "wb") as f:
         pickle.dump(foods, f)
+
+def append_to_database(*foods: StoredFood) -> None:
+    write_database(
+        get_foods_in_database() + list(foods)
+    )
 
 def food_to_stored_food(food_data: FoodData, storage_location: str) -> StoredFood:
     from datetime import datetime
