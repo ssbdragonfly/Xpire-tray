@@ -9,8 +9,10 @@ class App(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.title("Food Expire-E Program")   #change the name later
-        self.geometry(f"{width}x{height}")    
+        self.geometry(f"{width}x{height}")
+        self.homepage()
 
+    def homepage(self) -> None:
         pack_kwargs = {
             "pady": 20,
             "padx": 20,

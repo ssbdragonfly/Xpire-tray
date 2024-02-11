@@ -13,6 +13,7 @@ def select_file() -> Path:
             filetypes=[
                 ("All files", "*.*"),
                 *[
+                    # (name, extension)
                     (f"{x.upper()} files", f"*.{x}")
                     for x in ftypes
                 ],
