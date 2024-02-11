@@ -11,41 +11,21 @@ class App(ctk.CTk):
         self.title("Food Expire-E Program")   #change the name later
         self.geometry(f"{width}x{height}")    
 
-        #Name Entry
-        self.name_label = ctk.CTkLabel(self,
-                                text="Name")
-        self.name_label.grid(row=0, column=0,
-                            padx=20, pady=20,
-                            sticky="ew")
- 
-        # Name Entry Field
-        self.name_entry = ctk.CTkEntry(self, width = 700,
-                          placeholder_text="Your name here!")
-        self.name_entry.grid( row=0, column=1,
-                            columnspan=3, padx=20,
-                            pady=20, sticky="ew")
- 
         # Products Label
-        self.productLabel = ctk.CTkLabel(self, text="Products")
-        self.productLabel.grid(row=1, column=0,
-                           padx=20, pady=20,
-                           sticky="ew")
+        self.product_label = ctk.CTkLabel(self, text="Products")
+        self.product_label.pack(pady=20, padx=20, anchor="w")
  
         # Product Entry Field
         self.product_entry = ctk.CTkEntry(self,
                             placeholder_text="Comma seperated list!")
-        self.product_entry.grid(row=1, column=1,
-                           columnspan=3, padx=20,
-                           pady=20, sticky="ew")
+        self.product_entry.pack(pady=20, padx=20, anchor="w")
 
         # Generate Button
         self.gen_results_button = ctk.CTkButton(self,
                                          text="Generate Results",
                                          command=self.create_text)
-        self.gen_results_button.grid(row=5, column=1,
-                                        columnspan=2, padx=20, 
-                                        pady=20, sticky="ew")
- 
+        self.gen_results_button.pack(pady=20, padx=20, anchor="w")
+
     @staticmethod
     def filter_input(s: str) -> list[str]:
         s.replace(" ","")
