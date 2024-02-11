@@ -13,6 +13,7 @@ class App(ctk.CTk):
         super().__init__(*args, **kwargs)
         self.title(TITLE)   #change the name later
         self.geometry(f"{width}x{height}")
+        print(f"Pulling reminders about {get_foods_in_database()}")
         self.homepage()
 
     def homepage(self) -> None:
@@ -140,7 +141,7 @@ class App(ctk.CTk):
         return storedfood
     
     def on_closing(self) -> None:
-        schedule_reminders(get_foods_cached(), 90)
+        schedule_reminders(20)
         self.withdraw()
 
 def main():

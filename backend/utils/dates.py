@@ -1,14 +1,18 @@
 from datetime import datetime
-import schedule
+import time
 from backend.utils.data import StoredFood
 from backend.utils.utils import ExitCode
+from backend.utils.food import get_foods_in_database
 
 __all__ = [
     "schedule_reminders"
 ]
 
-def schedule_reminders(foods: dict[str, StoredFood], tol: int) -> None:
-    schedule.every().minute.at(":17").do(lambda foods=foods: _reminder(foods, tol))
+def schedule_reminders(tol: int) -> None:
+    while True:
+        # recalculate every day
+        _reminder(get_foods_in_database(), tol)
+        time.sleep(24 * 60 * 60)
 
 
 def _reminder(foods: list[StoredFood], tol: int) -> None:

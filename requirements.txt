@@ -1,6 +1,5 @@
 customtkinter
 requests
-schedule
 psutil
 plyer
 CTkMessagebox
