@@ -10,7 +10,7 @@ __all__ = [
 
 def get_image_info() -> dict[str, Any] | None | int:
     img = select_file()
-    api_user_token = '5ad57c61cb39d998df48a783417e336d23f02fe8'
+    api_user_token = 'e598b40ee33124ea456944703bf1a63d32f22363'
     headers = {'Authorization': 'Bearer ' + api_user_token}
 
     if img.is_dir():
