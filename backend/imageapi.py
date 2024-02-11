@@ -9,7 +9,7 @@ __all__ = [
 
 def get_image_info() -> dict[str, Any] | None:
     img = select_file()
-    api_user_token = 'fc2d833b315c0fbfe7b9fafc3ca65a5fc6652d2b'
+    api_user_token = '87eb9de2098804745eefda4af0421b4a2b03f47c'
     headers = {'Authorization': 'Bearer ' + api_user_token}
 
     with img.open("rb") as f:
@@ -18,12 +18,12 @@ def get_image_info() -> dict[str, Any] | None:
         if not resp:
             print('not working')           
         else:
-            url = 'https://api.logmeal.es/v2/recipe/ingredients'
+            url = 'https://api.logmeal.es/v2/recipe/nutritionalInfo'
             resp = requests.post(url, json={'imageId': resp.json()['imageId']}, headers=headers)
             
             food_name = resp.json().get('foodName')
             if not food_name:
                 CTkMessagebox(message="No food name found.")
             else:
-                return food_name
+                return resp.json()
 
