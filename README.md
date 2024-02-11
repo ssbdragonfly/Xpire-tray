@@ -1,7 +1,8 @@
 # Expir-E Warner
 Lightweight program that warns you if anything in your fridge, pantry, or freezer is close to expiry.
 
-![image](https://github.com/JasonGrace2282/phoenixhack24/assets/110117391/8bd34b5d-42c9-4c46-b115-7659be1e9bc0)
+![Screenshot on Windows](https://github.com/JasonGrace2282/phoenixhack24/assets/110117391/42bf9cff-f39a-417f-929a-ac6d29b9c3d3)
+
 
 
 ## Installation
