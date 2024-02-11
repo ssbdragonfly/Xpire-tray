@@ -4,7 +4,7 @@ import requests
 headers = {'Authorization': 'Bearer ' + '15ce8843e122167e593a87160b2bfe5f1892d749'}
 
 # Get all your API Users
-response = requests.post('/users/APIUsers', headers=headers)
+response = requests.post('https://users/APIUsers', headers=headers)
 
 # Get the API User Token from the response
 APIUsers_list = response.get_json()
