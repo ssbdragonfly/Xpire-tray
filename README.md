@@ -42,6 +42,8 @@ Xpire Tray is an app built with CustomTkinter that helps users manage their food
 `bash`
 `pip install r-requirements.txt`
 
+3. Go to [Logmeal API site](https://logmeal.com/) to get your API key and put it in your `.env` file.
+
 ### Usage
 
 1. Start the application:
