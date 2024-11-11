@@ -15,22 +15,24 @@ class App(ctk.CTk):
 
     def homepage(self) -> None:
         pack_kwargs = {
-            "pady": 20,
+            "pady": 10,
             "padx": 20,
-            "anchor": "w"
+            "anchor": "center"
         }
 
         # Products Label
         self.product_label = ctk.CTkLabel(
             self,
-            text="Products"
+            text="Products",
+            font=("Arial", 16, "bold")
         )
         self.product_label.pack(**pack_kwargs)
  
         # Product Entry Field
         self.product_entry = ctk.CTkEntry(
             self,
-            placeholder_text="Comma seperated list!"
+            placeholder_text="Comma separated list!",
+            width=300
         )
         self.product_entry.pack(**pack_kwargs)
 
@@ -38,23 +40,26 @@ class App(ctk.CTk):
         self.gen_results_button = ctk.CTkButton(
             self,
             text="Generate Results",
-            command=self.add_by_name
+            command=self.add_by_name,
+            width=150
         )
         self.gen_results_button.pack(**pack_kwargs)
         
         self.upload_from_file = ctk.CTkButton(
             self,
             text="Choose file",
-            command=self.add_from_file
+            command=self.add_from_file,
+            width=150
         )
         self.upload_from_file.pack(**pack_kwargs)
         
         self.ml_regression_button = ctk.CTkButton(
             self,
-            text="Nutrition Assesment",
-            command=parse
+            text="Nutrition Assessment of Food Image",
+            command=parse,
+            width=150
         )
-        self.ml_regression_button.pack(**(pack_kwargs | {"pady": 70}))
+        self.ml_regression_button.pack(**(pack_kwargs | {"pady": 30}))
 
     @staticmethod
     def filter_input(s: str) -> list[str]:
