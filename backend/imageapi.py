@@ -3,8 +3,6 @@ from gui_utils import select_file
 from typing import Any
 from backend.utils import ExitCode
 from CTkMessagebox import CTkMessagebox
-import os
-from dotenv import load_dotenv
 
 __all__ = [
     "get_image_info"
@@ -12,8 +10,7 @@ __all__ = [
 
 def get_image_info() -> dict[str, Any] | None | int:
     img = select_file()
-    load_dotenv()
-    api_user_token = os.getenv('API_USER_TOKEN')
+    api_user_token = '6b444efc95ca6e691dbc76393edca1d30c0637af'
     headers = {'Authorization': 'Bearer ' + api_user_token}
 
     if img.is_dir():
@@ -33,3 +30,4 @@ def get_image_info() -> dict[str, Any] | None | int:
                 CTkMessagebox(message="No food name found.").mainloop()
             else:
                 return food_data
+
